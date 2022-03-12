@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.SampleApplication.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.SampleApplication.FloatingActionButton
+        </item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.SampleApplication.Circle
+        </item>
+    </style>
+
+    <style name="ThemeOverlay.SampleApplication.FloatingActionButton" parent="">
+        <item name="colorSecondary">?attr/colorPrimary</item>
+        <item name="colorOnSecondary">?attr/colorOnPrimary</item>
+        <item name="colorOnSurface">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="Widget.SampleApplication.Toolbar" parent="Widget.MaterialComponents.Toolbar.PrimarySurface">
+        <item name="titleTextAppearance">@style/TextAppearance.SampleApplication.Headline6</item>
+        <item name="subtitleTextAppearance">@style/TextAppearance.SampleApplication.Headline1</item>
+
+        <item name="contentInsetStartWithNavigation">0dp</item>
+    </style>
+
+    <style name="Widget.SampleApplication.Button.OutlinedButton.IconOnly" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="ThemeOverlay.SampleApplication.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <!--<item name="colorPrimary">@color/design_default_color_primary</item>
+        <item name="colorSecondary">@color/design_default_color_secondary</item>
+        <item name="colorSurface">@color/design_default_color_surface</item>
+        <item name="colorOnSurface">@color/design_default_color_on_surface</item>-->
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.SampleApplication</item>
+        <item name="materialAlertDialogTitleTextStyle">
+            @style/MaterialAlertDialog.SampleApplication.Title.Text
+        </item>
+        <item name="materialAlertDialogBodyTextStyle">
+            @style/MaterialAlertDialog.SampleApplication.Body.Text
+        </item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.SampleDialog.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.SampleDialog.Button</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.SampleDialog.Button</item>
+    </style>
+
+    <style name="MaterialAlertDialog.SampleApplication" parent="MaterialAlertDialog.MaterialComponents">
+        <item name="shapeAppearance">@style/ShapeAppearance.SampleApplication.Rectangle</item>
+    </style>
+
+    <style name="MaterialAlertDialog.SampleApplication.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:lineSpacingMultiplier">1</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:maxLines">5</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+    <style name="MaterialAlertDialog.SampleApplication.Body.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:maxLines">5</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+    <style name="Widget.SampleDialog.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.SampleApplication.Button.TextButton
+        </item>
+        <item name="shapeAppearance">@style/ShapeAppearance.SampleApplication.SmallComponent</item>
+    </style>
+
+    <style name="ThemeOverlay.SampleDialog.Button" parent="">
+        <item name="colorPrimary">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.SampleApplication.Button" parent="Widget.MaterialComponents.Button">
+        <!--<item name="materialThemeOverlay">@style/ThemeOverlay.SampleApplication.Button</item>-->
+        <item name="android:textAppearance">@style/TextAppearance.SampleApplication.Headline1</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.SampleApplication.Rectangle</item>
+    </style>
+
+    <style name="ThemeOverlay.SampleApplication.Button.TextButton" parent="">
+        <item name="colorPrimary">@color/green_900</item>
+    </style>
+
+    <style name="ThemeOverlay.SampleApplication.Button" parent="">
+        <item name="colorPrimary">?attr/colorOnSurface</item>
+        <item name="colorOnPrimary">?attr/colorSurface</item>
+    </style>
+</resources>
