@@ -1,15 +1,14 @@
-package com.mkdev.currencyexchange.ui.notifications
+package com.mkdev.presentation.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mkdev.presentation.utils.CoroutineContextProvider
-import com.mkdev.presentation.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import javax.inject.Inject
 
 @HiltViewModel
-class NotificationsViewModel @Inject constructor(
+class ExchangeViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider
 ) : BaseViewModel(contextProvider) {
 
@@ -23,7 +22,7 @@ class NotificationsViewModel @Inject constructor(
         }
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+        value = "This is Exchange Fragment"
     }
     val text: LiveData<String> = _text
 }
