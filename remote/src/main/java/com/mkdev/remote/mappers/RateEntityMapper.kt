@@ -7,8 +7,8 @@ class RateEntityMapper @Inject constructor() :
     EntityMapper<HashMap<String, Double>, RateEntity> {
     override fun mapFromResponse(data: HashMap<String, Double>): RateEntity {
         return RateEntity(
-            currencyName = "",
-            rate = 0.0
+            currencyName = data.keys.first(),
+            rate = data.values.first()
         )
     }
 }

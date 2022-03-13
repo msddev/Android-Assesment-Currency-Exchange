@@ -13,7 +13,7 @@ interface RateDao {
     @Query("select * from $RATE_TABLE_NAME")
     fun getRates(): List<RateCacheEntity>
 
-    @Query("select * from $RATE_TABLE_NAME where id= :name")
+    @Query("select * from $RATE_TABLE_NAME where currency_name= :name")
     fun getRateByCurrencyName(name: String): RateCacheEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -7,9 +7,8 @@ import com.mkdev.cache.utils.CacheConstants.RATE_TABLE_NAME
 
 @Entity(tableName = RATE_TABLE_NAME)
 data class RateCacheEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "currency_name")
-    val currencyName: String = "",
-    val rate: Double = 0.0
+    var currencyName: String = "",
+    var rate: Double = 0.0
 )
