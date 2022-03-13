@@ -11,9 +11,9 @@ object ServiceFactory {
 
     private const val baseUrl = "http://api.exchangeratesapi.io"
 
-    fun create(isDebug: Boolean): FourSquareService {
+    fun create(isDebug: Boolean): ExchangeService {
         val retrofit = createRetrofit(isDebug)
-        return retrofit.create(FourSquareService::class.java)
+        return retrofit.create(ExchangeService::class.java)
     }
 
     private fun createRetrofit(

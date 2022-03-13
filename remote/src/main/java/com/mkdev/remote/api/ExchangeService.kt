@@ -4,10 +4,10 @@ import com.mkdev.remote.models.RateResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface FourSquareService {
+interface ExchangeService {
 
     @GET("v1/latest")
-    suspend fun getNearVenues(
+    suspend fun getRates(
         @Query("format") format: Int = 1
     ): RateResponse
 }
