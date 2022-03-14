@@ -3,6 +3,8 @@ package com.mkdev.presentation.viewModel
 import androidx.lifecycle.LiveData
 import com.mkdev.domain.intractor.GetBalanceUseCase
 import com.mkdev.domain.intractor.GetRatesUseCase
+import com.mkdev.domain.intractor.UpdateBalanceUseCase
+import com.mkdev.domain.model.Balance
 import com.mkdev.domain.model.BalanceUIModel
 import com.mkdev.domain.model.RateUIModel
 import com.mkdev.presentation.utils.CoroutineContextProvider
@@ -16,7 +18,8 @@ import javax.inject.Inject
 class RateViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val getRatesUseCase: GetRatesUseCase,
-    private val getBalanceUseCase: GetBalanceUseCase
+    private val getBalanceUseCase: GetBalanceUseCase,
+    private val updateBalanceUseCase: UpdateBalanceUseCase
 ) : BaseViewModel(contextProvider) {
 
     override val coroutineExceptionHandler: CoroutineExceptionHandler =
@@ -55,6 +58,12 @@ class RateViewModel @Inject constructor(
     private suspend fun loadBalances() {
         getBalanceUseCase(Unit).collect {
             _balanceList.postValue(BalanceUIModel.Success(it))
+        }
+    }
+
+    fun updateBalance(balances: List<Balance>) {
+        launchCoroutineIO {
+            updateBalanceUseCase(balances).collect()
         }
     }
 }

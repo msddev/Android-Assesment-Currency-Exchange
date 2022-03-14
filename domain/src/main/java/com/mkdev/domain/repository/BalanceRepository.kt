@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface BalanceRepository {
     suspend fun getBalances(): Flow<List<Balance>>
-    suspend fun saveBalances(balances: List<Balance>)
+    suspend fun saveBalances(balances: List<Balance>): Flow<Int>
 }

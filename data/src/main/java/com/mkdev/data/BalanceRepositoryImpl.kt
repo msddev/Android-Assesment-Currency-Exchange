@@ -1,6 +1,7 @@
 package com.mkdev.data
 
 import com.mkdev.data.mapper.BalanceMapper
+import com.mkdev.data.models.BalanceEntity
 import com.mkdev.data.source.BalanceCacheDataSource
 import com.mkdev.domain.model.Balance
 import com.mkdev.domain.repository.BalanceRepository
@@ -14,6 +15,9 @@ class BalanceRepositoryImpl @Inject constructor(
 ) : BalanceRepository {
 
     override suspend fun getBalances(): Flow<List<Balance>> = flow {
+        if (!dataSource.isCached()) {
+            dataSource.updateBalances(listOf(BalanceEntity("EUR", 1000.00)))
+        }
         val list = dataSource.getBalances()
             .map { entity ->
                 mapper.mapFromEntity(entity)
@@ -21,7 +25,7 @@ class BalanceRepositoryImpl @Inject constructor(
         emit(list)
     }
 
-    override suspend fun saveBalances(balances: List<Balance>) {
+    override suspend fun saveBalances(balances: List<Balance>): Flow<Int> = flow {
         val entities = balances.map { balance ->
             mapper.mapToEntity(balance)
         }

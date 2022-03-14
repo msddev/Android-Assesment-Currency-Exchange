@@ -21,4 +21,7 @@ class BalanceCacheImpl @Inject constructor(
             dao.insertBalance(cacheMapper.mapToCached(it))
         }
     }
+
+    override suspend fun isCached(): Boolean =
+        dao.getBalances().isNotEmpty()
 }

@@ -13,4 +13,7 @@ class BalanceCacheDataSource @Inject constructor(
 
     override suspend fun updateBalances(balances: List<BalanceEntity>) =
         cache.updateBalances(balances)
+
+    override suspend fun isCached(): Boolean =
+        cache.isCached()
 }

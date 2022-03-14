@@ -37,7 +37,6 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
-        viewModel.getBalances()
         viewModel.getRates()
 
         binding.buttonSubmit.setOnClickListener {
@@ -56,9 +55,7 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
             adapter = balanceAdapter
         }
 
-        balanceAdapter.setItemClickListener {
-
-        }
+        balanceAdapter.setItemClickListener {}
     }
 
     private fun onRateViewStateChange(event: RateUIModel) {
@@ -69,6 +66,7 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
             }
             is RateUIModel.Success -> {
                 handleLoading(false)
+                viewModel.getBalances()
                 updateCurrencySpinner(event.data)
             }
             is RateUIModel.Error -> {
