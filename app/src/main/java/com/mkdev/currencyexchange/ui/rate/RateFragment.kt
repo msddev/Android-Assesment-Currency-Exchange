@@ -53,7 +53,7 @@ class RateFragment : BaseFragment<FragmentRateBinding, RateViewModel>() {
             }
             is RateUIModel.Success -> {
                 handleLoading(false)
-                handleVenusResponse(event.data)
+                handleResponse(event.data)
             }
             is RateUIModel.Error -> {
                 handleErrorMessage(event.error)
@@ -61,7 +61,7 @@ class RateFragment : BaseFragment<FragmentRateBinding, RateViewModel>() {
         }
     }
 
-    private fun handleVenusResponse(items: List<Rate>) {
+    private fun handleResponse(items: List<Rate>) {
         rateAdapter.list = mutableListOf<Rate>().apply {
             addAll(rateAdapter.list)
             addAll(items)
