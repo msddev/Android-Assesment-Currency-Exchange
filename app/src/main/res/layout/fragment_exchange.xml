@@ -65,7 +65,7 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageViewSell"
-        android:layout_width="48dp"
+        android:layout_width="42dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="36dp"
@@ -98,6 +98,7 @@
         android:background="@null"
         android:gravity="center"
         android:hint="@string/hint_price"
+        android:inputType="numberDecimal"
         android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewSell"
         app:layout_constraintEnd_toStartOf="@+id/spinnerCurrencySell"
@@ -128,7 +129,7 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageViewBuy"
-        android:layout_width="48dp"
+        android:layout_width="42dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -161,6 +162,8 @@
         android:background="@null"
         android:gravity="center"
         android:hint="@string/hint_price"
+        android:inputType="none"
+        android:focusable="false"
         android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewBuy"
         app:layout_constraintEnd_toStartOf="@+id/spinnerCurrencyBuy"
