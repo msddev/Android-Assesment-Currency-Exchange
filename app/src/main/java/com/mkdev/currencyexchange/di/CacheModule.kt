@@ -1,10 +1,13 @@
 package com.mkdev.currencyexchange.di
 
 import android.content.Context
+import com.mkdev.cache.BalanceCacheImpl
 import com.mkdev.cache.RateCacheImpl
+import com.mkdev.cache.dao.BalanceDao
 import com.mkdev.cache.dao.RateDao
 import com.mkdev.cache.database.ExchangeDatabase
 import com.mkdev.cache.utils.CachePreferencesHelper
+import com.mkdev.data.repository.BalanceCache
 import com.mkdev.data.repository.RateCache
 import dagger.Module
 import dagger.Provides
@@ -30,6 +33,12 @@ object CacheModule {
 
     @Provides
     @Singleton
+    fun provideBalanceDao(database: ExchangeDatabase): BalanceDao {
+        return database.cachedBalanceDao()
+    }
+
+    @Provides
+    @Singleton
     fun provideCachePreferenceHelper(@ApplicationContext context: Context): CachePreferencesHelper {
         return CachePreferencesHelper(context)
     }
@@ -37,4 +46,8 @@ object CacheModule {
     @Provides
     @Singleton
     fun provideRateCache(cacheImpl: RateCacheImpl): RateCache = cacheImpl
+
+    @Provides
+    @Singleton
+    fun provideBalanceCache(cacheImpl: BalanceCacheImpl): BalanceCache = cacheImpl
 }

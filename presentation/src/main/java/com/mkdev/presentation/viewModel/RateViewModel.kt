@@ -1,8 +1,9 @@
 package com.mkdev.presentation.viewModel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.mkdev.domain.intractor.GetBalanceUseCase
 import com.mkdev.domain.intractor.GetRatesUseCase
+import com.mkdev.domain.model.BalanceUIModel
 import com.mkdev.domain.model.RateUIModel
 import com.mkdev.presentation.utils.CoroutineContextProvider
 import com.mkdev.presentation.utils.UiAwareLiveData
@@ -14,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class RateViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
-    private val getRatesUseCase: GetRatesUseCase
+    private val getRatesUseCase: GetRatesUseCase,
+    private val getBalanceUseCase: GetBalanceUseCase
 ) : BaseViewModel(contextProvider) {
 
     override val coroutineExceptionHandler: CoroutineExceptionHandler =
@@ -38,6 +40,21 @@ class RateViewModel @Inject constructor(
     private suspend fun loadRates() {
         getRatesUseCase(Unit).collect {
             _rateList.postValue(RateUIModel.Success(it))
+        }
+    }
+
+    private val _balanceList = UiAwareLiveData<BalanceUIModel>()
+    val balanceList: LiveData<BalanceUIModel> = _balanceList
+    fun getBalances() {
+        _balanceList.postValue(BalanceUIModel.Loading)
+        launchCoroutineIO {
+            loadBalances()
+        }
+    }
+
+    private suspend fun loadBalances() {
+        getBalanceUseCase(Unit).collect {
+            _balanceList.postValue(BalanceUIModel.Success(it))
         }
     }
 }
