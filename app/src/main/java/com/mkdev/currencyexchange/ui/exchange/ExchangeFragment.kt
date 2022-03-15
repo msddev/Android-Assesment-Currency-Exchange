@@ -1,8 +1,10 @@
 package com.mkdev.currencyexchange.ui.exchange
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import com.mkdev.currencyexchange.R
 import com.mkdev.currencyexchange.base.BaseFragment
 import com.mkdev.currencyexchange.databinding.FragmentExchangeBinding
 import com.mkdev.currencyexchange.extension.observe
@@ -43,12 +45,9 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
 
         binding.buttonSubmit.setOnClickListener {
             val sellCurrency =
-                currencySellAdapter.getItem(binding.spinnerCurrencySell.selectedItemPosition) as Rate
+                currencySellAdapter.getDataSourceItem(binding.spinnerCurrencySell.selectedItemPosition)
             val buyCurrency =
-                currencyBuyAdapter.getItem(binding.spinnerCurrencyBuy.selectedItemPosition) as Rate
-
-            /*Log.d("ddddd", sellCurrency.currencyName)
-            Log.d("ddddd", sellCurrency.rate.toString())*/
+                currencyBuyAdapter.getDataSourceItem(binding.spinnerCurrencyBuy.selectedItemPosition)
         }
     }
 
@@ -69,8 +68,7 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
             is RateUIModel.Success -> {
                 handleLoading(false)
                 viewModel.getBalances()
-                updateCurrencySpinner(event.data.sortedBy { it.currencyName }
-                    .map { it.currencyName })
+                updateCurrencySpinner(event.data.sortedBy { it.currencyName })
             }
             is RateUIModel.Error -> {
                 handleErrorMessage(event.error)
@@ -94,20 +92,20 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
         }
     }
 
-    private fun updateCurrencySpinner(data: List<String>) {
+    private fun updateCurrencySpinner(data: List<Rate>) {
         currencySellAdapter = SpinnerCurrencyAdapter(requireContext(), data).also {
             binding.spinnerCurrencySell.apply {
-                it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                it.setDropDownViewResource(R.layout.item_currency_list)
                 adapter = it
-                setSelection(it.getPosition(CURRENCY_NAME_EUR))
+                setSelection(it.getPosition(data.find { it.currencyName == CURRENCY_NAME_EUR }?.currencyName))
             }
         }
 
         currencyBuyAdapter = SpinnerCurrencyAdapter(requireContext(), data).also {
             binding.spinnerCurrencyBuy.apply {
-                it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                it.setDropDownViewResource(R.layout.item_currency_list)
                 adapter = it
-                setSelection(it.getPosition(CURRENCY_NAME_USD))
+                setSelection(it.getPosition(data.find { it.currencyName == CURRENCY_NAME_USD }?.currencyName))
             }
         }
     }
