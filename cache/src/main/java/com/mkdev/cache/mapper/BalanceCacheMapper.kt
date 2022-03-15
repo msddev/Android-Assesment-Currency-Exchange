@@ -5,15 +5,15 @@ import com.mkdev.data.models.BalanceEntity
 import javax.inject.Inject
 
 class BalanceCacheMapper @Inject constructor() : CacheMapper<BalanceCacheEntity, BalanceEntity> {
-    override fun mapFromCached(type: BalanceCacheEntity): BalanceEntity =
+    override fun mapFromCached(type: BalanceCacheEntity?): BalanceEntity =
         BalanceEntity(
-            currencyName = type.currencyName,
-            balance = type.balance
+            currencyName = type?.currencyName ?: "",
+            balance = type?.balance ?: 0.0
         )
 
-    override fun mapToCached(type: BalanceEntity): BalanceCacheEntity =
+    override fun mapToCached(type: BalanceEntity?): BalanceCacheEntity =
         BalanceCacheEntity(
-            currencyName = type.currencyName,
-            balance = type.balance,
+            currencyName = type?.currencyName ?: "",
+            balance = type?.balance ?: 0.0
         )
 }

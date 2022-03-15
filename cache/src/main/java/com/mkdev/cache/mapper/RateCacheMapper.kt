@@ -5,15 +5,15 @@ import com.mkdev.data.models.RateEntity
 import javax.inject.Inject
 
 class RateCacheMapper @Inject constructor() : CacheMapper<RateCacheEntity, RateEntity> {
-    override fun mapFromCached(type: RateCacheEntity): RateEntity =
+    override fun mapFromCached(type: RateCacheEntity?): RateEntity =
         RateEntity(
-            currencyName = type.currencyName,
-            rate = type.rate
+            currencyName = type?.currencyName ?: "",
+            rate = type?.rate ?: 0.0
         )
 
-    override fun mapToCached(type: RateEntity): RateCacheEntity =
+    override fun mapToCached(type: RateEntity?): RateCacheEntity =
         RateCacheEntity(
-            currencyName = type.currencyName,
-            rate = type.rate,
+            currencyName = type?.currencyName ?: "",
+            rate = type?.rate ?: 0.0
         )
 }

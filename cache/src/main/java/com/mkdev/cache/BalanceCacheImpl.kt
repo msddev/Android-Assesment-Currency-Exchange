@@ -18,7 +18,7 @@ class BalanceCacheImpl @Inject constructor(
         }
 
     override suspend fun getBalance(currencyName: String): BalanceEntity =
-        cacheMapper.mapFromCached(dao.getBalance(currencyName) ?: BalanceCacheEntity())
+        cacheMapper.mapFromCached(dao.getBalance(currencyName))
 
     override suspend fun updateBalances(balances: List<BalanceEntity>) {
         balances.map {
