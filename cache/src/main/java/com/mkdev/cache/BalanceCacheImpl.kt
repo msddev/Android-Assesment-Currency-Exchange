@@ -2,6 +2,7 @@ package com.mkdev.cache
 
 import com.mkdev.cache.dao.BalanceDao
 import com.mkdev.cache.mapper.BalanceCacheMapper
+import com.mkdev.cache.models.BalanceCacheEntity
 import com.mkdev.data.models.BalanceEntity
 import com.mkdev.data.repository.BalanceCache
 import javax.inject.Inject
@@ -17,7 +18,7 @@ class BalanceCacheImpl @Inject constructor(
         }
 
     override suspend fun getBalance(currencyName: String): BalanceEntity =
-        cacheMapper.mapFromCached(dao.getBalance(currencyName))
+        cacheMapper.mapFromCached(dao.getBalance(currencyName) ?: BalanceCacheEntity())
 
     override suspend fun updateBalances(balances: List<BalanceEntity>) {
         balances.map {

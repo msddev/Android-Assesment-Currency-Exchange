@@ -16,5 +16,5 @@ interface BalanceDao {
     fun getBalances(): List<BalanceCacheEntity>
 
     @Query("SELECT * FROM $BALANCE_TABLE_NAME WHERE currency_name = :currencyName")
-    fun getBalance(currencyName: String): BalanceCacheEntity
+    fun getBalance(currencyName: String): BalanceCacheEntity?
 }

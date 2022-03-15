@@ -26,7 +26,7 @@ class BalanceRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBalance(currencyName: String): Flow<Balance> = flow {
-        val balance = mapper.mapFromEntity(dataSource.getBalance(currencyName))
+        val balance = mapper.mapFromEntity(dataSource.getBalance(currencyName) ?: BalanceEntity())
         emit(balance)
     }
 
