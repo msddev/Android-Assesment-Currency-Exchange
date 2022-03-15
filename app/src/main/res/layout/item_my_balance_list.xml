@@ -10,9 +10,9 @@
     android:textColor="@color/blue_gray_700"
     android:textSize="18sp"
     android:textStyle="normal"
-    app:textAllCaps="true"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_chainStyle="spread"
+    app:textAllCaps="true"
     tools:text="1000.00 eur" />

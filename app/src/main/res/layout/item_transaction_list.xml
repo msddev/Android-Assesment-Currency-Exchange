@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardViewHolder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="2dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="2dp"
+    android:elevation="4dp"
+    app:cardCornerRadius="@dimen/card_view_radius_transaction">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewTransferOperation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@string/transfer_operation"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/textViewTransferFromHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:textAllCaps="true" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewTransferFromHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewTransferHeader"
+            app:layout_constraintTop_toTopOf="parent"
+            app:textAllCaps="true"
+            tools:text="From" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewTransferHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewTransferToHeader"
+            app:layout_constraintEnd_toStartOf="@+id/textViewTransferToHeader"
+            app:layout_constraintTop_toTopOf="@+id/textViewTransferToHeader"
+            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewTransferToHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:textAllCaps="true"
+            tools:text="To" />
+
+        <View
+            android:id="@+id/lineHeader"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/gray_300"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewTransferToHeader" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewSellTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:text="@string/sell"
+            android:textColor="@color/color_gray_100"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lineHeader" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewTransferFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewSellTitle"
+            app:layout_constraintStart_toEndOf="@+id/textViewSellTitle"
+            app:layout_constraintTop_toTopOf="@+id/textViewSellTitle"
+            app:textAllCaps="true"
+            tools:text="From" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewTransferFromAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:textColor="@color/color_blue_100"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textViewSellTitle"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSellTitle"
+            app:textAllCaps="true"
+            tools:text="$222.00" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewBuyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/buy"
+            android:textColor="@color/color_gray_100"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewTransferTo"
+            app:layout_constraintEnd_toStartOf="@+id/textViewTransferTo"
+            app:layout_constraintTop_toTopOf="@+id/textViewTransferTo" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewTransferTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:padding="8dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewSellTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewSellTitle"
+            app:textAllCaps="true"
+            tools:text="To" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewTransferToAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:textColor="@color/color_green_100"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTransferTo"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBuyTitle"
+            app:textAllCaps="true"
+            tools:text="$222.00" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageViewTransfer"
+            android:layout_width="42dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:contentPadding="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewTransferFromAmount"
+            app:layout_constraintEnd_toStartOf="@+id/textViewTransferToAmount"
+            app:layout_constraintStart_toEndOf="@+id/textViewTransferFromAmount"
+            app:layout_constraintTop_toTopOf="@+id/textViewTransferFromAmount"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.SampleApplication.Circle"
+            app:srcCompat="@drawable/ic_baseline_sync_alt_24"
+            app:strokeColor="@color/gray_300"
+            app:strokeWidth="1dp" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/gradient_drawable"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewTransfer" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewCurrentBalanceTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:padding="12dp"
+            android:text="@string/current_balance"
+            android:textColor="@color/color_blue_200"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewCurrentBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:textColor="#A8A5C1"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textViewCurrentBalanceTitle"
+            app:layout_constraintStart_toStartOf="@+id/textViewCurrentBalanceTitle"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCurrentBalanceTitle"
+            app:layout_constraintVertical_bias="0"
+            app:textAllCaps="true"
+            tools:text="$222.00" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewCommissionFeeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:padding="12dp"
+            android:text="@string/commission_fee"
+            android:textColor="@color/color_blue_200"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewCommissionFee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="#ebeaf2"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textViewCommissionFeeTitle"
+            app:layout_constraintStart_toStartOf="@+id/textViewCommissionFeeTitle"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCommissionFeeTitle"
+            app:layout_constraintVertical_bias="0"
+            app:textAllCaps="true"
+            tools:text="$222.00" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

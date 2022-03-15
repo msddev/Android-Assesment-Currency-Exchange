@@ -2,6 +2,7 @@
     <string name="app_name">Currency Exchange</string>
     <string name="title_exchange">Exchange</string>
     <string name="title_rate">Rate</string>
+    <string name="title_transaction">Transactions</string>
     <string name="my_balances">My Balances</string>
     <string name="currency_exchange">Currency Exchange</string>
     <string name="sell">Sell</string>
@@ -9,4 +10,9 @@
     <string name="hint_price">000.00</string>
     <string name="submit">Submit</string>
     <string name="sell_amount_is_less_than_zero">Sell amount is less than zero</string>
+    <string name="transfer_operation">Transfer Operation</string>
+    <string name="sell">Sell</string>
+    <string name="buy">Buy</string>
+    <string name="current_balance">Current Balance</string>
+    <string name="commission_fee">Commission Fee</string>
 </resources>
