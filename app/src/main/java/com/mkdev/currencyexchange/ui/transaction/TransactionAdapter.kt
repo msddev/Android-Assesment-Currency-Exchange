@@ -20,7 +20,7 @@ class TransactionAdapter @Inject constructor() : BaseAdapter<Transaction>() {
         }
 
         override fun areContentsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
-            return oldItem.currencyBalance == newItem.currencyBalance
+            return oldItem.currentBalance == newItem.currentBalance
         }
     }
 
@@ -49,7 +49,7 @@ class TransactionAdapter @Inject constructor() : BaseAdapter<Transaction>() {
                     item.fromAmount.formatTwoDecimalNumber().toString()
                 textViewTransferToAmount.text = item.toAmount.formatTwoDecimalNumber().toString()
                 textViewCurrentBalance.text =
-                    item.currencyBalance.formatTwoDecimalNumber().toString()
+                    item.currentBalance.formatTwoDecimalNumber().toString()
                 textViewCommissionFee.text = item.commissionFee.formatTwoDecimalNumber().toString()
 
                 root.setOnClickListener {

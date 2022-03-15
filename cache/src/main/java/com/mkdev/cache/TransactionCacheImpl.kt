@@ -14,4 +14,7 @@ class TransactionCacheImpl @Inject constructor(
         dao.getTransactions().map { cache ->
             cacheMapper.mapFromCached(cache)
         }
+
+    override suspend fun saveTransaction(data: TransactionEntity) =
+        dao.insertTransaction(cacheMapper.mapToCached(data))
 }

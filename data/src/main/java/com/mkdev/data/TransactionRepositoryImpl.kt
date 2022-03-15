@@ -12,11 +12,14 @@ class TransactionRepositoryImpl @Inject constructor(
     private val dataSource: TransactionCacheDataSource,
     private val mapper: TransactionMapper
 ) : TransactionRepository {
-    override fun getTransactions(): Flow<List<Transaction>> = flow {
+    override suspend fun getTransactions(): Flow<List<Transaction>> = flow {
         val list = dataSource.getTransactions()
             .map { entity ->
                 mapper.mapFromEntity(entity)
             }
         emit(list)
     }
+
+    override suspend fun saveTransaction(transaction: Transaction) =
+        dataSource.saveTransaction(mapper.mapToEntity(transaction))
 }

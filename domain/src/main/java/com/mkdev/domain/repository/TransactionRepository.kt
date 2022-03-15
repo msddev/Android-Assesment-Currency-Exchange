@@ -5,5 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface TransactionRepository {
     // Cache
-    fun getTransactions(): Flow<List<Transaction>>
+    suspend fun getTransactions(): Flow<List<Transaction>>
+    suspend fun saveTransaction(transaction: Transaction)
 }

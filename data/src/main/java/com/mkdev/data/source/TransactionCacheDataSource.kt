@@ -10,4 +10,7 @@ class TransactionCacheDataSource @Inject constructor(
 ) : TransactionDataSource {
     override suspend fun getTransactions(): List<TransactionEntity> =
         cache.getTransactions()
+
+    override suspend fun saveTransaction(data: TransactionEntity) =
+        cache.saveTransaction(data)
 }

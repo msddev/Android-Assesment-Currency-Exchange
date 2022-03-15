@@ -50,7 +50,7 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
     }
 
     private fun initViews() {
-        setupRecyclerView()
+        binding.recyclerViewMyBalances.adapter = balanceAdapter
 
         binding.editTextSell.addTextChangedListener(object : TextWatcher {
             private var debounceJob: Job? = null
@@ -93,18 +93,7 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
                     buyRate = buyRate
                 )
             )
-
-            binding.editTextSell.setText("")
-            binding.editTextBuy.setText("")
         }
-    }
-
-    private fun setupRecyclerView() {
-        binding.recyclerViewMyBalances.apply {
-            adapter = balanceAdapter
-        }
-
-        balanceAdapter.setItemClickListener {}
     }
 
     private fun onRateViewStateChange(event: RateUIModel) {
@@ -126,6 +115,9 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
 
     private fun onBalanceViewStateChange(event: BalanceUIModel) {
         balanceAdapter.list = (event as BalanceUIModel.Success).data
+
+        binding.editTextSell.setText("")
+        binding.editTextBuy.setText("")
     }
 
     private fun onConvertCurrencyViewStateChange(event: ConvertCurrencyUIModel) {

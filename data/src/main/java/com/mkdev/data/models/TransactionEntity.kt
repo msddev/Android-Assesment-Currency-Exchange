@@ -5,6 +5,6 @@ data class TransactionEntity(
     val toCurrency: String,
     val fromAmount: Double,
     val toAmount: Double,
-    val currencyBalance: Double,
+    val currentBalance: Double,
     val commissionFee: Double
 )

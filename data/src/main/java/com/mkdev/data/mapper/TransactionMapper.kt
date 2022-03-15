@@ -11,7 +11,7 @@ class TransactionMapper @Inject constructor() : Mapper<TransactionEntity, Transa
             toCurrency = type.toCurrency,
             fromAmount = type.fromAmount,
             toAmount = type.toAmount,
-            currencyBalance = type.currencyBalance,
+            currentBalance = type.currentBalance,
             commissionFee = type.commissionFee
         )
 
@@ -21,7 +21,7 @@ class TransactionMapper @Inject constructor() : Mapper<TransactionEntity, Transa
             toCurrency = type.toCurrency,
             fromAmount = type.fromAmount,
             toAmount = type.toAmount,
-            currencyBalance = type.currencyBalance,
+            currentBalance = type.currentBalance,
             commissionFee = type.commissionFee
         )
 }

@@ -17,8 +17,8 @@ data class TransactionCacheEntity(
     var fromAmount: Double = 0.0,
     @ColumnInfo(name = "to_amount")
     var toAmount: Double = 0.0,
-    @ColumnInfo(name = "currency_balance")
-    var currencyBalance: Double = 0.0,
+    @ColumnInfo(name = "current_balance")
+    var currentBalance: Double = 0.0,
     @ColumnInfo(name = "commission_fee")
     var commissionFee: Double = 0.0
 )

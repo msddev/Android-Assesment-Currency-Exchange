@@ -30,7 +30,7 @@ class BalanceRepositoryImpl @Inject constructor(
         emit(balance)
     }
 
-    override suspend fun saveBalances(balances: List<Balance>): Flow<Int> = flow {
+    override suspend fun saveBalances(balances: List<Balance>) {
         val entities = balances.map { balance ->
             mapper.mapToEntity(balance)
         }

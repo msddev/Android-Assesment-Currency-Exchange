@@ -12,7 +12,7 @@ class TransactionCacheMapper @Inject constructor() :
             toCurrency = type.toCurrency,
             fromAmount = type.fromAmount,
             toAmount = type.toAmount,
-            currencyBalance = type.currencyBalance,
+            currentBalance = type.currentBalance,
             commissionFee = type.commissionFee
         )
 
@@ -22,7 +22,7 @@ class TransactionCacheMapper @Inject constructor() :
             toCurrency = type.toCurrency,
             fromAmount = type.fromAmount,
             toAmount = type.toAmount,
-            currencyBalance = type.currencyBalance,
+            currentBalance = type.currentBalance,
             commissionFee = type.commissionFee
         )
 }
