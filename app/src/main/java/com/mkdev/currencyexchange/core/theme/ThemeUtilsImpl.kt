@@ -3,7 +3,6 @@ package com.mkdev.currencyexchange.core.theme
 import android.content.Context
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
-import com.mkdev.currencyexchange.core.theme.ThemeUtils
 import javax.inject.Inject
 
 class ThemeUtilsImpl @Inject constructor() : ThemeUtils {

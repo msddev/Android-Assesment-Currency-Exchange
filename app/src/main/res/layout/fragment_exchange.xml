@@ -1,213 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.exchange.ExchangeFragment">
 
-    <ProgressBar
-        android:id="@+id/progressBarExchange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewMyBalances"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="start"
-        android:text="@string/my_balances"
-        android:textColor="@color/blue_gray_900"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:textAllCaps="true" />
+        android:layout_height="wrap_content">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewMyBalances"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewMyBalances"
-        tools:listitem="@layout/item_my_balance_list" />
+        <ProgressBar
+            android:id="@+id/progressBarExchange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewCurrencyExchange"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="start"
-        android:text="@string/currency_exchange"
-        android:textColor="@color/blue_gray_900"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewMyBalances"
-        app:textAllCaps="true" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewMyBalances"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="start"
+            android:text="@string/my_balances"
+            android:textColor="@color/blue_gray_900"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:textAllCaps="true" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageViewSell"
-        android:layout_width="42dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:adjustViewBounds="true"
-        android:background="@color/red_700"
-        app:contentPadding="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrencyExchange"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.SampleApplication.Circle"
-        app:srcCompat="@drawable/ic_baseline_north_24" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewMyBalances"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewMyBalances"
+            tools:listitem="@layout/item_my_balance_list" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewSell"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:gravity="start"
-        android:text="@string/sell"
-        android:textColor="@color/blue_gray_900"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewSell"
-        app:layout_constraintStart_toEndOf="@+id/imageViewSell"
-        app:layout_constraintTop_toTopOf="@+id/imageViewSell" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewCurrencyExchange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="start"
+            android:text="@string/currency_exchange"
+            android:textColor="@color/blue_gray_900"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewMyBalances"
+            app:textAllCaps="true" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/editTextSell"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:gravity="center"
-        android:hint="@string/hint_price"
-        android:inputType="numberDecimal"
-        android:padding="12dp"
-        android:maxLength="8"
-        android:lines="1"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewSell"
-        app:layout_constraintEnd_toStartOf="@+id/spinnerCurrencySell"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toEndOf="@+id/textViewSell"
-        app:layout_constraintTop_toTopOf="@+id/textViewSell"
-        app:layout_constraintWidth_min="100dp" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageViewSell"
+            android:layout_width="42dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="36dp"
+            android:adjustViewBounds="true"
+            android:background="@color/red_700"
+            app:contentPadding="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCurrencyExchange"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.SampleApplication.Circle"
+            app:srcCompat="@drawable/ic_baseline_north_24" />
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinnerCurrencySell"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintWidth_min="80dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextSell"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintTop_toTopOf="@+id/editTextSell" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewSell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:gravity="start"
+            android:text="@string/sell"
+            android:textColor="@color/blue_gray_900"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewSell"
+            app:layout_constraintStart_toEndOf="@+id/imageViewSell"
+            app:layout_constraintTop_toTopOf="@+id/imageViewSell" />
 
-    <View
-        android:id="@+id/lineSell"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/gray_300"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textViewSell"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewSell" />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextSell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="@string/hint_price"
+            android:inputType="numberDecimal"
+            android:lines="1"
+            android:maxLength="8"
+            android:padding="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewSell"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerCurrencySell"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/textViewSell"
+            app:layout_constraintTop_toTopOf="@+id/textViewSell"
+            app:layout_constraintWidth_min="100dp" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageViewBuy"
-        android:layout_width="42dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:adjustViewBounds="true"
-        android:background="@color/green_700"
-        app:contentPadding="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lineSell"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.SampleApplication.Circle"
-        app:srcCompat="@drawable/ic_baseline_south_24" />
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinnerCurrencySell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextSell"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editTextSell"
+            app:layout_constraintWidth_min="80dp" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewBuy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:gravity="start"
-        android:text="@string/buy"
-        android:textColor="@color/blue_gray_900"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewBuy"
-        app:layout_constraintStart_toEndOf="@+id/imageViewBuy"
-        app:layout_constraintTop_toTopOf="@+id/imageViewBuy" />
+        <View
+            android:id="@+id/lineSell"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/gray_300"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textViewSell"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewSell" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/editTextBuy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:gravity="center"
-        android:hint="@string/hint_price"
-        android:inputType="none"
-        android:focusable="false"
-        android:padding="12dp"
-        android:maxLength="8"
-        android:lines="1"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewBuy"
-        app:layout_constraintEnd_toStartOf="@+id/spinnerCurrencyBuy"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toEndOf="@+id/textViewBuy"
-        app:layout_constraintTop_toTopOf="@+id/textViewBuy"
-        app:layout_constraintWidth_min="100dp" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageViewBuy"
+            android:layout_width="42dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:background="@color/green_700"
+            app:contentPadding="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lineSell"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.SampleApplication.Circle"
+            app:srcCompat="@drawable/ic_baseline_south_24" />
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinnerCurrencyBuy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextBuy"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintTop_toTopOf="@+id/editTextBuy" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:gravity="start"
+            android:text="@string/buy"
+            android:textColor="@color/blue_gray_900"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewBuy"
+            app:layout_constraintStart_toEndOf="@+id/imageViewBuy"
+            app:layout_constraintTop_toTopOf="@+id/imageViewBuy" />
 
-    <View
-        android:id="@+id/lineBuy"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/gray_300"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textViewBuy"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewBuy" />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:focusable="false"
+            android:gravity="center"
+            android:hint="@string/hint_price"
+            android:inputType="none"
+            android:lines="1"
+            android:maxLength="8"
+            android:padding="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewBuy"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerCurrencyBuy"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/textViewBuy"
+            app:layout_constraintTop_toTopOf="@+id/textViewBuy"
+            app:layout_constraintWidth_min="100dp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonSubmit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:padding="16dp"
-        android:text="@string/submit"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.SampleApplication.Circle" />
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinnerCurrencyBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextBuy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintTop_toTopOf="@+id/editTextBuy"
+            app:layout_constraintWidth_min="80dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/lineBuy"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/gray_300"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textViewBuy"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBuy" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:padding="16dp"
+            android:text="@string/submit"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lineBuy"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.SampleApplication.Circle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

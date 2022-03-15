@@ -1,12 +1,11 @@
 package com.mkdev.presentation.viewModel
 
 import androidx.lifecycle.LiveData
+import com.mkdev.domain.intractor.ConvertCurrencyUseCase
 import com.mkdev.domain.intractor.GetBalanceUseCase
 import com.mkdev.domain.intractor.GetRatesUseCase
 import com.mkdev.domain.intractor.UpdateBalanceUseCase
-import com.mkdev.domain.model.Balance
-import com.mkdev.domain.model.BalanceUIModel
-import com.mkdev.domain.model.RateUIModel
+import com.mkdev.domain.model.*
 import com.mkdev.presentation.utils.CoroutineContextProvider
 import com.mkdev.presentation.utils.UiAwareLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +18,8 @@ class RateViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val getRatesUseCase: GetRatesUseCase,
     private val getBalanceUseCase: GetBalanceUseCase,
-    private val updateBalanceUseCase: UpdateBalanceUseCase
+    private val updateBalanceUseCase: UpdateBalanceUseCase,
+    private val convertCurrencyUseCase: ConvertCurrencyUseCase
 ) : BaseViewModel(contextProvider) {
 
     override val coroutineExceptionHandler: CoroutineExceptionHandler =
@@ -64,6 +64,20 @@ class RateViewModel @Inject constructor(
     fun updateBalance(balances: List<Balance>) {
         launchCoroutineIO {
             updateBalanceUseCase(balances).collect()
+        }
+    }
+
+    private val _convertCurrency = UiAwareLiveData<ConvertCurrencyUIModel>()
+    val convertedCurrency: LiveData<ConvertCurrencyUIModel> = _convertCurrency
+    fun convertCurrency(params: ExchangeParams) {
+        launchCoroutineIO {
+            calculateConvertCurrency(params)
+        }
+    }
+
+    private suspend fun calculateConvertCurrency(params: ExchangeParams) {
+        convertCurrencyUseCase(params).collect {
+            _convertCurrency.postValue(it)
         }
     }
 }
