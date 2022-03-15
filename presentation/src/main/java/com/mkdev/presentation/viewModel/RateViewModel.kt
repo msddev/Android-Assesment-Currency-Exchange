@@ -26,7 +26,7 @@ class RateViewModel @Inject constructor(
         CoroutineExceptionHandler { _, exception ->
             _rateList.postValue(
                 RateUIModel.Error(
-                    exception.message ?: "Occurred ViewModel Exception!"
+                    exception.message ?: "Occurred Exception!"
                 )
             )
         }
@@ -61,9 +61,11 @@ class RateViewModel @Inject constructor(
         }
     }
 
-    fun updateBalance(balances: List<Balance>) {
+    fun updateBalance(params: BalanceParams) {
         launchCoroutineIO {
-            updateBalanceUseCase(balances).collect()
+            updateBalanceUseCase(params).collect {
+                _balanceList.postValue(it)
+            }
         }
     }
 

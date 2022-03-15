@@ -31,18 +31,9 @@ class RateFragment : BaseFragment<FragmentRateBinding, RateViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupRecyclerView()
+        binding.recyclerViewRate.adapter = rateAdapter
+
         viewModel.getRates()
-    }
-
-    private fun setupRecyclerView() {
-        binding.recyclerViewRate.apply {
-            adapter = rateAdapter
-        }
-
-        rateAdapter.setItemClickListener {
-
-        }
     }
 
     private fun onViewStateChange(event: RateUIModel) {
@@ -62,8 +53,6 @@ class RateFragment : BaseFragment<FragmentRateBinding, RateViewModel>() {
     }
 
     private fun handleResponse(items: List<Rate>) {
-        rateAdapter.list = mutableListOf<Rate>().apply {
-            addAll(items)
-        }
+        rateAdapter.list = items
     }
 }

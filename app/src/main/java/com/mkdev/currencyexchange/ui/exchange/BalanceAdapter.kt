@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mkdev.currencyexchange.base.BaseAdapter
 import com.mkdev.currencyexchange.databinding.ItemMyBalanceListBinding
+import com.mkdev.currencyexchange.extension.formatTwoDecimalNumber
 import com.mkdev.domain.model.Balance
 import javax.inject.Inject
 
@@ -40,7 +41,7 @@ class BalanceAdapter @Inject constructor() : BaseAdapter<Balance>() {
         RecyclerView.ViewHolder(binding.root), Binder<Balance> {
         override fun bind(item: Balance) {
             binding.apply {
-                textViewBalance.text = "${item.balance} ${item.currencyName.uppercase()}"
+                textViewBalance.text = "${item.balance.formatTwoDecimalNumber()} ${item.currencyName.uppercase()}"
 
                 root.setOnClickListener {
                     onItemClickListener?.let { itemClick ->

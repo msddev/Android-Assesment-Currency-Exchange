@@ -25,6 +25,11 @@ class BalanceRepositoryImpl @Inject constructor(
         emit(list)
     }
 
+    override suspend fun getBalance(currencyName: String): Flow<Balance> = flow {
+        val balance = mapper.mapFromEntity(dataSource.getBalance(currencyName))
+        emit(balance)
+    }
+
     override suspend fun saveBalances(balances: List<Balance>): Flow<Int> = flow {
         val entities = balances.map { balance ->
             mapper.mapToEntity(balance)

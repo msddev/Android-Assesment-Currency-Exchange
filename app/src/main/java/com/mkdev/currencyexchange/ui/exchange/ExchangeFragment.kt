@@ -62,6 +62,10 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
 
             override fun afterTextChanged(amount: Editable) {
                 debounceJob?.cancel()
+                if (amount.toString().isEmpty()) {
+                    binding.editTextBuy.setText("")
+                    return
+                }
                 debounceJob = MainScope().launch {
                     delay(DELAY)
                     hideKeyboard()
@@ -70,24 +74,29 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
             }
         })
 
-        /*binding.buttonSubmit.setOnClickListener {
+        binding.buttonSubmit.setOnClickListener {
+            val sellAmount = binding.editTextSell.text.toString().toDouble()
+            val buyAmount = binding.editTextBuy.text.toString().toDouble()
+            val sellRate = getSelectedRates().first
+            val buyRate = getSelectedRates().second
 
-            if (binding.editTextSell.text?.isBlank() == false) {
-                val sellCurrency =
-                    currencySellAdapter.getDataSourceItem(binding.spinnerCurrencySell.selectedItemPosition)
-                val buyCurrency =
-                    currencyBuyAdapter.getDataSourceItem(binding.spinnerCurrencyBuy.selectedItemPosition)
-
-                myViewModel.submit(
-                    KEY_IS_SELL_TYPE,
-                    balanceSell,
-                    balanceReceive,
-                    editTextSell.text.toString(),
-                )
-            } else {
-                showSnackBarMessage("Invalid input")
+            if (sellAmount <= 0) {
+                handleErrorMessage(getString(R.string.sell_amount_is_less_than_zero))
+                return@setOnClickListener
             }
-        }*/
+
+            viewModel.updateBalance(
+                BalanceParams(
+                    sellAmount = sellAmount,
+                    sellRate = sellRate,
+                    buyAmount = buyAmount,
+                    buyRate = buyRate
+                )
+            )
+
+            binding.editTextSell.setText("")
+            binding.editTextBuy.setText("")
+        }
     }
 
     private fun setupRecyclerView() {
@@ -116,7 +125,7 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
     }
 
     private fun onBalanceViewStateChange(event: BalanceUIModel) {
-        updateBalanceList((event as BalanceUIModel.Success).data)
+        balanceAdapter.list = (event as BalanceUIModel.Success).data
     }
 
     private fun onConvertCurrencyViewStateChange(event: ConvertCurrencyUIModel) {
@@ -146,12 +155,6 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
                 adapter = it
                 setSelection(it.getPosition(data.find { it.currencyName == CURRENCY_NAME_USD }?.currencyName))
             }
-        }
-    }
-
-    private fun updateBalanceList(items: List<Balance>) {
-        balanceAdapter.list = mutableListOf<Balance>().apply {
-            addAll(items)
         }
     }
 

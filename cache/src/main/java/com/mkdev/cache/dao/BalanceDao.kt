@@ -12,6 +12,9 @@ interface BalanceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertBalance(balance: BalanceCacheEntity)
 
-    @Query("select * from $BALANCE_TABLE_NAME")
+    @Query("SELECT * FROM $BALANCE_TABLE_NAME")
     fun getBalances(): List<BalanceCacheEntity>
+
+    @Query("SELECT * FROM $BALANCE_TABLE_NAME WHERE currency_name = :currencyName")
+    fun getBalance(currencyName: String): BalanceCacheEntity
 }

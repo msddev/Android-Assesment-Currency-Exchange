@@ -11,6 +11,9 @@ class BalanceCacheDataSource @Inject constructor(
     override suspend fun getBalances(): List<BalanceEntity> =
         cache.getBalances()
 
+    override suspend fun getBalance(currencyName: String): BalanceEntity =
+        cache.getBalance(currencyName)
+
     override suspend fun updateBalances(balances: List<BalanceEntity>) =
         cache.updateBalances(balances)
 
