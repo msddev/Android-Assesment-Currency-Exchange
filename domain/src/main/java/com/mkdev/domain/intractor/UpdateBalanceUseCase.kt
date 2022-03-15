@@ -8,6 +8,7 @@ import com.mkdev.domain.repository.BalanceRepository
 import com.mkdev.domain.repository.TransactionRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -20,10 +21,13 @@ class UpdateBalanceUseCase @Inject constructor(
         val currentSellBalances = balanceRepository.getBalance(params.sellRate.currencyName).first()
         val newSellBalance = currentSellBalances.balance - params.sellAmount
 
+        val currentBuyBalances = balanceRepository.getBalance(params.buyRate.currencyName).firstOrNull()
+        val newBuyBalance = currentBuyBalances?.balance/* + params.buyAmount*/ ?: 0.0
+
         balanceRepository.saveBalances(
             listOf(
                 Balance(currentSellBalances.currencyName, newSellBalance),
-                Balance(params.buyRate.currencyName, params.buyAmount)
+                Balance(params.buyRate.currencyName, newBuyBalance)
             )
         )
 
