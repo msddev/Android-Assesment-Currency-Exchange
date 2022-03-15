@@ -6,6 +6,8 @@ import androidx.fragment.app.viewModels
 import com.mkdev.currencyexchange.base.BaseFragment
 import com.mkdev.currencyexchange.databinding.FragmentExchangeBinding
 import com.mkdev.currencyexchange.extension.observe
+import com.mkdev.currencyexchange.utils.AppConstants.CURRENCY_NAME_EUR
+import com.mkdev.currencyexchange.utils.AppConstants.CURRENCY_NAME_USD
 import com.mkdev.domain.model.Balance
 import com.mkdev.domain.model.BalanceUIModel
 import com.mkdev.domain.model.Rate
@@ -67,7 +69,8 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
             is RateUIModel.Success -> {
                 handleLoading(false)
                 viewModel.getBalances()
-                updateCurrencySpinner(event.data)
+                updateCurrencySpinner(event.data.sortedBy { it.currencyName }
+                    .map { it.currencyName })
             }
             is RateUIModel.Error -> {
                 handleErrorMessage(event.error)
@@ -91,17 +94,26 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
         }
     }
 
-    private fun updateCurrencySpinner(data: List<Rate>) {
-        currencySellAdapter = SpinnerCurrencyAdapter(requireContext(), data)
-        binding.spinnerCurrencySell.adapter = currencySellAdapter
+    private fun updateCurrencySpinner(data: List<String>) {
+        currencySellAdapter = SpinnerCurrencyAdapter(requireContext(), data).also {
+            binding.spinnerCurrencySell.apply {
+                it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                adapter = it
+                setSelection(it.getPosition(CURRENCY_NAME_EUR))
+            }
+        }
 
-        currencyBuyAdapter = SpinnerCurrencyAdapter(requireContext(), data)
-        binding.spinnerCurrencyBuy.adapter = currencyBuyAdapter
+        currencyBuyAdapter = SpinnerCurrencyAdapter(requireContext(), data).also {
+            binding.spinnerCurrencyBuy.apply {
+                it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                adapter = it
+                setSelection(it.getPosition(CURRENCY_NAME_USD))
+            }
+        }
     }
 
     private fun updateBalanceList(items: List<Balance>) {
         balanceAdapter.list = mutableListOf<Balance>().apply {
-            addAll(balanceAdapter.list)
             addAll(items)
         }
     }

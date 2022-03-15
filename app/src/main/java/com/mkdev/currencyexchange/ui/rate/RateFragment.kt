@@ -63,7 +63,6 @@ class RateFragment : BaseFragment<FragmentRateBinding, RateViewModel>() {
 
     private fun handleResponse(items: List<Rate>) {
         rateAdapter.list = mutableListOf<Rate>().apply {
-            addAll(rateAdapter.list)
             addAll(items)
         }
     }
