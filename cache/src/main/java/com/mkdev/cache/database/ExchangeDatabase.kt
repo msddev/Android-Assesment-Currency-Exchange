@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mkdev.cache.dao.BalanceDao
 import com.mkdev.cache.dao.RateDao
+import com.mkdev.cache.dao.TransactionDao
 import com.mkdev.cache.models.BalanceCacheEntity
 import com.mkdev.cache.models.RateCacheEntity
 import com.mkdev.cache.utils.CacheConstants
@@ -21,6 +22,7 @@ abstract class ExchangeDatabase @Inject constructor() : RoomDatabase() {
 
     abstract fun cachedRateDao(): RateDao
     abstract fun cachedBalanceDao(): BalanceDao
+    abstract fun cachedTransactionDao(): TransactionDao
 
     companion object {
         @Volatile
