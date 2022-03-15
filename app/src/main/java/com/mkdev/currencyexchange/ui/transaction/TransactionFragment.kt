@@ -2,9 +2,12 @@ package com.mkdev.currencyexchange.ui.transaction
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.mkdev.currencyexchange.base.BaseFragment
 import com.mkdev.currencyexchange.databinding.FragmentTransactionBinding
+import com.mkdev.currencyexchange.extension.makeGone
+import com.mkdev.currencyexchange.extension.makeVisible
 import com.mkdev.currencyexchange.extension.observe
 import com.mkdev.domain.model.Transaction
 import com.mkdev.domain.model.TransactionUIModel
@@ -31,7 +34,7 @@ class TransactionFragment : BaseFragment<FragmentTransactionBinding, Transaction
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerViewRate.adapter = transactionAdapter
+        binding.recyclerViewTransaction.adapter = transactionAdapter
 
         viewModel.getTransactions()
     }
@@ -53,6 +56,10 @@ class TransactionFragment : BaseFragment<FragmentTransactionBinding, Transaction
     }
 
     private fun handleResponse(items: List<Transaction>) {
+        if (items.isNotEmpty()) {
+            binding.recyclerViewTransaction.makeVisible()
+            binding.groupNothing.makeGone()
+        }
         transactionAdapter.list = items
     }
 }

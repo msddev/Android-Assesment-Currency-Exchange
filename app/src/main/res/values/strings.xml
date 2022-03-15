@@ -11,8 +11,9 @@
     <string name="submit">Submit</string>
     <string name="sell_amount_is_less_than_zero">Sell amount is less than zero</string>
     <string name="transfer_operation">Transfer Operation</string>
-    <string name="sell">Sell</string>
-    <string name="buy">Buy</string>
     <string name="current_balance">Current Balance</string>
     <string name="commission_fee">Commission Fee</string>
+    <string name="transaction">Transaction</string>
+    <string name="nothing">Nothing!!</string>
+    <string name="your_transaction_list_is_empty">Your Transaction list is empty</string>
 </resources>

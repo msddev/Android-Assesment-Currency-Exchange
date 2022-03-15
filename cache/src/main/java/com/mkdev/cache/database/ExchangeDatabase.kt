@@ -9,12 +9,17 @@ import com.mkdev.cache.dao.RateDao
 import com.mkdev.cache.dao.TransactionDao
 import com.mkdev.cache.models.BalanceCacheEntity
 import com.mkdev.cache.models.RateCacheEntity
+import com.mkdev.cache.models.TransactionCacheEntity
 import com.mkdev.cache.utils.CacheConstants
 import com.mkdev.cache.utils.Migrations
 import javax.inject.Inject
 
 @Database(
-    entities = [RateCacheEntity::class, BalanceCacheEntity::class],
+    entities = [
+        RateCacheEntity::class,
+        BalanceCacheEntity::class,
+        TransactionCacheEntity::class
+    ],
     version = Migrations.DB_VERSION,
     exportSchema = false
 )
