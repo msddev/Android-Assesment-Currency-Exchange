@@ -7,6 +7,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.mkdev.currencyexchange.R
 import com.mkdev.currencyexchange.base.BaseFragment
+import com.mkdev.currencyexchange.core.dialog.showDialog
 import com.mkdev.currencyexchange.databinding.FragmentExchangeBinding
 import com.mkdev.currencyexchange.extension.*
 import com.mkdev.currencyexchange.utils.AppConstants.CURRENCY_NAME_EUR
@@ -40,6 +41,7 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
         observe(viewModel.convertedCurrency, ::onConvertCurrencyViewStateChange)
 
         viewModel.repeatRequest()
+        viewModel.getBalances()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,7 +104,6 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
             }
             is RateUIModel.Success -> {
                 binding.textViewRefreshRate.makeGone()
-                viewModel.getBalances()
                 updateCurrencySpinner(event.data.sortedBy { it.currencyName })
             }
             is RateUIModel.Error -> {
@@ -112,12 +113,35 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
     }
 
     private fun onBalanceViewStateChange(event: BalanceUIModel) {
-        if (event is BalanceUIModel.Success) {
-            balanceAdapter.list = event.data
-
-            binding.editTextSell.setText("")
-            binding.editTextBuy.setText("")
+        when (event) {
+            is BalanceUIModel.Success -> {
+                balanceAdapter.list = event.data
+            }
+            is BalanceUIModel.SuccessWithMessage -> {
+                showMessageDialog(event.data)
+            }
+            is BalanceUIModel.Loading -> Unit
+            is BalanceUIModel.Error -> Unit
         }
+        binding.editTextSell.setText("")
+        binding.editTextBuy.setText("")
+    }
+
+    private fun showMessageDialog(data: Transaction) {
+        showDialog(
+            message = getString(
+                R.string.transaction_message,
+                data.fromAmount.formatTwoDecimalNumber().toString(),
+                data.fromCurrency.uppercase(),
+                data.toAmount.formatTwoDecimalNumber().toString(),
+                data.toCurrency.uppercase(),
+                data.commissionFee.formatTwoDecimalNumber().toString(),
+                data.fromCurrency.uppercase(),
+            ),
+            cancelable = false,
+            textPositive = getString(R.string.ok_string),
+            positiveListener = {}
+        )
     }
 
     private fun onConvertCurrencyViewStateChange(event: ConvertCurrencyUIModel) {

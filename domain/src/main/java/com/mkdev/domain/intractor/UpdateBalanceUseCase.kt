@@ -8,6 +8,7 @@ import com.mkdev.domain.repository.BalanceRepository
 import com.mkdev.domain.repository.TransactionRepository
 import com.mkdev.domain.utils.DomainConstants.COMMISSION_PERCENT
 import com.mkdev.domain.utils.DomainConstants.FREE_COMMISSION_LIMIT
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -51,5 +52,7 @@ class UpdateBalanceUseCase @Inject constructor(
 
         val balanceList = balanceRepository.getBalances().first()
         emit(BalanceUIModel.Success(balanceList))
+        delay(500)
+        emit(BalanceUIModel.SuccessWithMessage(transaction))
     }
 }
