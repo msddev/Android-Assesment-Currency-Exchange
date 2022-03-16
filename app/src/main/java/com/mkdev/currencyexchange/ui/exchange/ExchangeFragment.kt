@@ -56,8 +56,9 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
         binding.editTextSell.addTextChangedListener(object : TextWatcher {
             private var debounceJob: Job? = null
             private val DELAY: Long = 500L
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
-                Unit
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                binding.editTextBuy.setText("")
+            }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
 
@@ -76,8 +77,18 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
         })
 
         binding.buttonSubmit.setOnClickListener {
+            if (binding.editTextSell.text.isNullOrEmpty()) {
+                handleErrorMessage(getString(R.string.empty_sell_amount))
+                return@setOnClickListener
+            }
+            if (binding.editTextBuy.text.isNullOrEmpty()) {
+                handleErrorMessage(getString(R.string.empty_buy_amount))
+                return@setOnClickListener
+            }
+
             val sellAmount = binding.editTextSell.text.toString().toDouble()
             val buyAmount = binding.editTextBuy.text.toString().toDouble()
+
             val sellRate = getSelectedRates().first
             val buyRate = getSelectedRates().second
 
