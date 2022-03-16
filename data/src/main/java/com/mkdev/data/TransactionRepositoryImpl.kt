@@ -22,4 +22,8 @@ class TransactionRepositoryImpl @Inject constructor(
 
     override suspend fun saveTransaction(transaction: Transaction) =
         dataSource.saveTransaction(mapper.mapToEntity(transaction))
+
+    override suspend fun getTransactionCount(): Flow<Int> = flow {
+        emit(dataSource.getTransactionCount())
+    }
 }

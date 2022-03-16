@@ -6,7 +6,11 @@ import com.mkdev.domain.model.BalanceUIModel
 import com.mkdev.domain.model.Transaction
 import com.mkdev.domain.repository.BalanceRepository
 import com.mkdev.domain.repository.TransactionRepository
-import kotlinx.coroutines.flow.*
+import com.mkdev.domain.utils.DomainConstants.COMMISSION_PERCENT
+import com.mkdev.domain.utils.DomainConstants.FREE_COMMISSION_LIMIT
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class UpdateBalanceUseCase @Inject constructor(
@@ -15,16 +19,23 @@ class UpdateBalanceUseCase @Inject constructor(
 ) : BaseUseCase<BalanceParams, Flow<BalanceUIModel>> {
     override suspend fun invoke(params: BalanceParams): Flow<BalanceUIModel> = flow {
 
-        val currentSellBalances = balanceRepository.getBalance(params.sellRate.currencyName).first()
-        val newSellBalance = currentSellBalances.balance - params.sellAmount
+        val transactionCount = transactionRepository.getTransactionCount().first()
+        var commissionFee = 0.0
 
         val currentBuyBalances = balanceRepository.getBalance(params.buyRate.currencyName).first()
-        val newBuyBalance = currentBuyBalances.balance + params.buyAmount
+        val newBalance = currentBuyBalances.balance + params.buyAmount
+
+        if (transactionCount >= FREE_COMMISSION_LIMIT) {
+            commissionFee = ((COMMISSION_PERCENT * newBalance) / 100)
+        }
+
+        val currentSellBalances = balanceRepository.getBalance(params.sellRate.currencyName).first()
+        val totalBalance = currentSellBalances.balance - (params.sellAmount + commissionFee)
 
         balanceRepository.saveBalances(
             listOf(
-                Balance(currentSellBalances.currencyName, newSellBalance),
-                Balance(params.buyRate.currencyName, newBuyBalance)
+                Balance(currentSellBalances.currencyName, totalBalance),
+                Balance(params.buyRate.currencyName, newBalance)
             )
         )
 
@@ -33,8 +44,8 @@ class UpdateBalanceUseCase @Inject constructor(
             toCurrency = params.buyRate.currencyName,
             fromAmount = params.sellAmount,
             toAmount = params.buyAmount,
-            currentBalance = 0.0,
-            commissionFee = 0.0
+            currentBalance = totalBalance,
+            commissionFee = commissionFee
         )
         transactionRepository.saveTransaction(transaction)
 

@@ -54,7 +54,7 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
 
         binding.editTextSell.addTextChangedListener(object : TextWatcher {
             private var debounceJob: Job? = null
-            private val DELAY: Long = 1500L
+            private val DELAY: Long = 500L
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
                 Unit
 
@@ -97,7 +97,6 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
     }
 
     private fun onRateViewStateChange(event: RateUIModel) {
-        if (event.isRedelivered) return
         when (event) {
             is RateUIModel.Loading -> {
                 handleLoading(true)

@@ -37,7 +37,6 @@ class RateFragment : BaseFragment<FragmentRateBinding, RateViewModel>() {
     }
 
     private fun onViewStateChange(event: RateUIModel) {
-        if (event.isRedelivered) return
         when (event) {
             is RateUIModel.Loading -> {
                 handleLoading(true)

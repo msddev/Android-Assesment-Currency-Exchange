@@ -14,4 +14,7 @@ interface TransactionDao {
 
     @Query("SELECT * FROM $TRANSACTION_TABLE_NAME")
     fun getTransactions(): List<TransactionCacheEntity>
+
+    @Query("SELECT COUNT(*) FROM $TRANSACTION_TABLE_NAME")
+    fun getTransactionCount(): Int
 }

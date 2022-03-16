@@ -13,4 +13,7 @@ class TransactionCacheDataSource @Inject constructor(
 
     override suspend fun saveTransaction(data: TransactionEntity) =
         cache.saveTransaction(data)
+
+    override suspend fun getTransactionCount(): Int =
+        cache.getTransactionCount()
 }

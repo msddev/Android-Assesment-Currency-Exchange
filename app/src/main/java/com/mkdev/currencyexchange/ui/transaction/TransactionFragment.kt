@@ -40,7 +40,6 @@ class TransactionFragment : BaseFragment<FragmentTransactionBinding, Transaction
     }
 
     private fun onViewStateChange(event: TransactionUIModel) {
-        if (event.isRedelivered) return
         when (event) {
             is TransactionUIModel.Loading -> {
                 handleLoading(true)
