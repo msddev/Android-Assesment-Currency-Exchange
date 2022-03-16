@@ -1,5 +1,5 @@
 # Currency Exchanger
-The Currency-Exchanger consuming a [Exchange Rate API](https://exchangeratesapi.io/pricing/) for exchanging currencies. it has been built with clean architecture principles, Repository Pattern, and MVVM pattern as well as Architecture Components.
+The Currency-Exchanger consuming an [Exchange Rate API](https://exchangeratesapi.io/pricing/) for exchanging currencies. it has been built with clean architecture principles, Repository Pattern, and MVVM pattern as well as Architecture Components.
 
 This app shows the usage of the new Navigation Architecture Component.
 
