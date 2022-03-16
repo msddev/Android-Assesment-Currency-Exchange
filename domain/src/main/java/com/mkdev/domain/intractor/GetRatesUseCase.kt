@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetRatesUseCase @Inject constructor(
     private val repository: RateRepository
-) : BaseUseCase<Unit, Flow<List<Rate>>> {
-    override suspend fun invoke(params: Unit): Flow<List<Rate>> =
-        repository.getRates()
+) : BaseUseCase<Boolean, Flow<List<Rate>>> {
+    override suspend fun invoke(params: Boolean): Flow<List<Rate>> =
+        repository.getRates(params)
 }

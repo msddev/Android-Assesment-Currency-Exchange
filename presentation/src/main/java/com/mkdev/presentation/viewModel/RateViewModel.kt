@@ -1,6 +1,7 @@
 package com.mkdev.presentation.viewModel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import com.mkdev.domain.intractor.ConvertCurrencyUseCase
 import com.mkdev.domain.intractor.GetBalanceUseCase
 import com.mkdev.domain.intractor.GetRatesUseCase
@@ -9,7 +10,7 @@ import com.mkdev.domain.model.*
 import com.mkdev.presentation.utils.CoroutineContextProvider
 import com.mkdev.presentation.utils.UiAwareLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
@@ -22,6 +23,8 @@ class RateViewModel @Inject constructor(
     private val convertCurrencyUseCase: ConvertCurrencyUseCase
 ) : BaseViewModel(contextProvider) {
 
+    var repeatableJob: Job? = null
+
     override val coroutineExceptionHandler: CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, exception ->
             _rateList.postValue(
@@ -33,15 +36,15 @@ class RateViewModel @Inject constructor(
 
     private val _rateList = UiAwareLiveData<RateUIModel>()
     val rateList: LiveData<RateUIModel> = _rateList
-    fun getRates() {
+    fun getRates(isForced: Boolean = false) {
         _rateList.postValue(RateUIModel.Loading)
         launchCoroutineIO {
-            loadRates()
+            loadRates(isForced)
         }
     }
 
-    private suspend fun loadRates() {
-        getRatesUseCase(Unit).collect {
+    private suspend fun loadRates(isForced: Boolean) {
+        getRatesUseCase(isForced).collect {
             _rateList.postValue(RateUIModel.Success(it))
         }
     }
@@ -49,7 +52,7 @@ class RateViewModel @Inject constructor(
     private val _balanceList = UiAwareLiveData<BalanceUIModel>()
     val balanceList: LiveData<BalanceUIModel> = _balanceList
     fun getBalances() {
-        _balanceList.postValue(BalanceUIModel.Loading)
+        //_balanceList.postValue(BalanceUIModel.Loading)
         launchCoroutineIO {
             loadBalances()
         }
@@ -81,5 +84,20 @@ class RateViewModel @Inject constructor(
         convertCurrencyUseCase(params).collect {
             _convertCurrency.postValue(it)
         }
+    }
+
+    fun repeatRequest() {
+        repeatableJob = viewModelScope.launch {
+            while (isActive) {
+                getRates(true)
+                delay(5 * 1000)
+            }
+        }
+    }
+
+
+    override fun onCleared() {
+        repeatableJob?.cancel()
+        super.onCleared()
     }
 }

@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface RateRepository {
     // Remote and cache
-    fun getRates(): Flow<List<Rate>>
+    fun getRates(isForced:Boolean): Flow<List<Rate>>
     fun getRateByCurrencyName(name: String): Flow<Rate>
 
     // Cache

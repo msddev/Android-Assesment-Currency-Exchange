@@ -8,9 +8,7 @@ import androidx.fragment.app.viewModels
 import com.mkdev.currencyexchange.R
 import com.mkdev.currencyexchange.base.BaseFragment
 import com.mkdev.currencyexchange.databinding.FragmentExchangeBinding
-import com.mkdev.currencyexchange.extension.formatTwoDecimalNumber
-import com.mkdev.currencyexchange.extension.hideKeyboard
-import com.mkdev.currencyexchange.extension.observe
+import com.mkdev.currencyexchange.extension.*
 import com.mkdev.currencyexchange.utils.AppConstants.CURRENCY_NAME_EUR
 import com.mkdev.currencyexchange.utils.AppConstants.CURRENCY_NAME_USD
 import com.mkdev.domain.model.*
@@ -40,12 +38,13 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
         observe(viewModel.rateList, ::onRateViewStateChange)
         observe(viewModel.balanceList, ::onBalanceViewStateChange)
         observe(viewModel.convertedCurrency, ::onConvertCurrencyViewStateChange)
+
+        viewModel.repeatRequest()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getRates()
         initViews()
     }
 
@@ -99,10 +98,10 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
     private fun onRateViewStateChange(event: RateUIModel) {
         when (event) {
             is RateUIModel.Loading -> {
-                handleLoading(true)
+                binding.textViewRefreshRate.makeVisible()
             }
             is RateUIModel.Success -> {
-                handleLoading(false)
+                binding.textViewRefreshRate.makeGone()
                 viewModel.getBalances()
                 updateCurrencySpinner(event.data.sortedBy { it.currencyName })
             }
@@ -113,10 +112,12 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
     }
 
     private fun onBalanceViewStateChange(event: BalanceUIModel) {
-        balanceAdapter.list = (event as BalanceUIModel.Success).data
+        if (event is BalanceUIModel.Success) {
+            balanceAdapter.list = event.data
 
-        binding.editTextSell.setText("")
-        binding.editTextBuy.setText("")
+            binding.editTextSell.setText("")
+            binding.editTextBuy.setText("")
+        }
     }
 
     private fun onConvertCurrencyViewStateChange(event: ConvertCurrencyUIModel) {

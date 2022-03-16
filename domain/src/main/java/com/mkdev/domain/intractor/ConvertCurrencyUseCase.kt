@@ -2,11 +2,15 @@ package com.mkdev.domain.intractor
 
 import com.mkdev.domain.model.ConvertCurrencyUIModel
 import com.mkdev.domain.model.ExchangeParams
+import com.mkdev.domain.repository.BalanceRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class ConvertCurrencyUseCase @Inject constructor() :
+class ConvertCurrencyUseCase @Inject constructor(
+    private val balanceRepository: BalanceRepository,
+) :
     BaseUseCase<ExchangeParams, Flow<ConvertCurrencyUIModel>> {
     override suspend fun invoke(params: ExchangeParams): Flow<ConvertCurrencyUIModel> = flow {
         if (params.amount <= 0.0) {
@@ -14,13 +18,13 @@ class ConvertCurrencyUseCase @Inject constructor() :
             return@flow
         }
 
-        val buyCurrency = params.buyRate.rate * params.amount
-
-        //TODO(CHECK BALANCE VALUE)
-        /*if (sellBalance.balance < amountDouble) {
-            emit(Resource.failed(message = "Amount is not greater than current balance"))
+        val currentSellBalances = balanceRepository.getBalance(params.sellRate.currencyName).first()
+        if (params.amount >= currentSellBalances.balance) {
+            emit(ConvertCurrencyUIModel.Error("Current balance is less than sell amount"))
             return@flow
-        }*/
+        }
+
+        val buyCurrency = params.buyRate.rate * params.amount
         emit(ConvertCurrencyUIModel.Success(buyCurrency))
     }
 }

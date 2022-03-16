@@ -16,4 +16,5 @@
     <string name="transaction">Transaction</string>
     <string name="nothing">Nothing!!</string>
     <string name="your_transaction_list_is_empty">Your Transaction list is empty</string>
+    <string name="updating">Updating…</string>
 </resources>

@@ -12,8 +12,8 @@ class RateRepositoryImpl @Inject constructor(
     private val dataSourceFactory: RateDataSourceFactory,
     private val rateMapper: RateMapper
 ) : RateRepository {
-    override fun getRates(): Flow<List<Rate>> = flow {
-        val isCached = dataSourceFactory.getCacheDataSource().isCached()
+    override fun getRates(isForced: Boolean): Flow<List<Rate>> = flow {
+        val isCached = if (isForced) false else dataSourceFactory.getCacheDataSource().isCached()
         val rateList = dataSourceFactory.getDataStore(isCached).getRates()
             .map { rateEntity ->
                 rateMapper.mapFromEntity(rateEntity)
