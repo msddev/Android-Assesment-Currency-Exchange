@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class RequestInterceptor : Interceptor {
 
-    private val accessKey = "4cca9a4e9d792dcfc8c665e9c87686ab"
+    private val accessKey = "2712709b1b585dd153dbe1d747d88dc0"
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
