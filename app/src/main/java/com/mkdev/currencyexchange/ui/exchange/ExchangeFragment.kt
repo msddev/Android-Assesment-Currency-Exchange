@@ -24,8 +24,22 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() {
 
-    private var currencySellAdapter: SpinnerCurrencyAdapter? = null
-    private var currencyBuyAdapter: SpinnerCurrencyAdapter? = null
+    private val currencySellAdapter: SpinnerCurrencyAdapter by lazy {
+        SpinnerCurrencyAdapter(requireContext()).also {
+            binding.spinnerCurrencySell.apply {
+                it.setDropDownViewResource(R.layout.item_currency_list)
+                adapter = it
+            }
+        }
+    }
+    private val currencyBuyAdapter: SpinnerCurrencyAdapter by lazy {
+        SpinnerCurrencyAdapter(requireContext()).also {
+            binding.spinnerCurrencyBuy.apply {
+                it.setDropDownViewResource(R.layout.item_currency_list)
+                adapter = it
+            }
+        }
+    }
 
     @Inject
     lateinit var balanceAdapter: BalanceAdapter
@@ -40,7 +54,7 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
         observe(viewModel.balanceList, ::onBalanceViewStateChange)
         observe(viewModel.convertedCurrency, ::onConvertCurrencyViewStateChange)
 
-        viewModel.repeatRequest()
+        viewModel.getRateRepeatedly()
         viewModel.getBalances()
     }
 
@@ -168,43 +182,28 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding, RateViewModel>() 
     }
 
     private fun updateCurrencySpinner(data: List<Rate>) {
-        val latestSelection = currencySellAdapter?.let {
-            getSelectedRates()
-        }
-        currencySellAdapter = SpinnerCurrencyAdapter(requireContext(), data).also {
-            binding.spinnerCurrencySell.apply {
-                it.setDropDownViewResource(R.layout.item_currency_list)
-                adapter = it
+        val latestSelectedItems = if (!currencySellAdapter.isEmpty) getSelectedRates() else null
 
-                val selectedItem = latestSelection?.let { latest ->
-                    it.getPosition(data.find { it.currencyName == latest.first.currencyName }?.currencyName)
-                } ?: run {
-                    it.getPosition(data.find { it.currencyName == CURRENCY_NAME_EUR }?.currencyName)
-                }
-                setSelection(selectedItem)
-            }
-        }
+        currencySellAdapter.updateSpinner(
+            data,
+            latestSelectedItems?.first?.currencyName,
+            CURRENCY_NAME_EUR,
+            binding.spinnerCurrencySell
+        )
 
-        currencyBuyAdapter = SpinnerCurrencyAdapter(requireContext(), data).also {
-            binding.spinnerCurrencyBuy.apply {
-                it.setDropDownViewResource(R.layout.item_currency_list)
-                adapter = it
-
-                val selectedItem = latestSelection?.let { latest ->
-                    it.getPosition(data.find { it.currencyName == latest.second.currencyName }?.currencyName)
-                } ?: run {
-                    it.getPosition(data.find { it.currencyName == CURRENCY_NAME_USD }?.currencyName)
-                }
-                setSelection(selectedItem)
-            }
-        }
+        currencyBuyAdapter.updateSpinner(
+            data,
+            latestSelectedItems?.second?.currencyName,
+            CURRENCY_NAME_USD,
+            binding.spinnerCurrencyBuy
+        )
     }
 
     private fun getSelectedRates(): Pair<Rate, Rate> {
         val sellCurrency =
-            currencySellAdapter?.getDataSourceItem(binding.spinnerCurrencySell.selectedItemPosition)!!
+            currencySellAdapter.getDataSourceItem(binding.spinnerCurrencySell.selectedItemPosition)
         val buyCurrency =
-            currencyBuyAdapter?.getDataSourceItem(binding.spinnerCurrencyBuy.selectedItemPosition)!!
+            currencyBuyAdapter.getDataSourceItem(binding.spinnerCurrencyBuy.selectedItemPosition)
 
         return Pair(sellCurrency, buyCurrency)
     }

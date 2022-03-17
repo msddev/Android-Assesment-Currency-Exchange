@@ -86,12 +86,12 @@ class RateViewModel @Inject constructor(
         }
     }
 
-    fun repeatRequest() {
+    fun getRateRepeatedly() {
         repeatableJob = viewModelScope.launch {
-            while (isActive) {
+            /*while (isActive) {*/
                 getRates(true)
-                delay(5 * 1000)
-            }
+                /*delay(5 * 1000)
+            }*/
         }
     }
 
